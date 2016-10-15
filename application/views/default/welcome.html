@@ -98,7 +98,8 @@
                     <tr>
                         <td>
                             <a href="{{ site_url('tugas?judul=' ~ urlencode(m.judul)) }}">{{ m.judul }}</a>
-                        </td>                    </tr>
+                        </td>
+                    </tr>
                     {% endfor %}
                 </table>
             </div>
@@ -110,11 +111,6 @@
                     <tr>
                         <td>
                             <a href="{{ site_url('materi/detail/' ~ m.id) }}" target="_tab">{{ m.judul }}</a>
-                        </td>
-                        <td>
-                            {% for mk in m.kelas_terkait %}
-                                {{mk.nama }}
-                            {% endfor %}
                         </td>
                     </tr>
                     {% endfor %}

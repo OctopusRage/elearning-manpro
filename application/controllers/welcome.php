@@ -5,7 +5,7 @@ class Welcome extends MY_Controller
     function index()
     {
         must_login();
-        
+
         $data = array();
         if (is_siswa()) {
             $siswa_id = get_sess_data('user', 'id');
@@ -24,16 +24,13 @@ class Welcome extends MY_Controller
                 null,
                 1
             );
-
-
             $data['materi_terbaru'] = $retrieve_all_materi['results'];
-            //$data['materi_terbaru'][1]['aji'] = 'lul';
+
             $imt = 1;
             foreach ($data['materi_terbaru'] as $mt) {
                 $data['materi_terbaru'][$imt]['kelas_terkait']= $this->materi_model->retrieve_all_kelas_spesifik($mt['id']);
                 $imt++;
             }
-            print_r($data['materi_terbaru']);
             # ambil semua data tugas
             $retrieve_all_tugas = $this->tugas_model->retrieve_all(
                 10,
@@ -47,6 +44,7 @@ class Welcome extends MY_Controller
             );
 
             $data['tugas_terbaru'] = $retrieve_all_tugas['results'];
+
             $where_pengumuman = array(
                 'tgl_tampil <=' => date('Y-m-d'),
                 'tgl_tutup >='  => date('Y-m-d'),

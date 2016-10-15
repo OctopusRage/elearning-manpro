@@ -88,16 +88,6 @@ class Materi_model extends CI_Model
         return $result->result_array();
     }
 
-    public function retrieve_all_kelas_spesifik($materi_id)
-    {
-        $this->db->select('kelas.nama');
-        $this->db->from('kelas');
-        $this->db->join('materi_kelas', 'kelas.id = materi_kelas.kelas_id');
-        $this->db->where('materi_id', $materi_id);
-        $result = $this->db->get();
-        return $result->result_array();
-    }
-
     /**
      * Method untuk menambah materi kelas
      *
@@ -240,6 +230,16 @@ class Materi_model extends CI_Model
         }
 
         return $data;
+    }
+
+    public function retrieve_all_kelas_spesifik($materi_id)
+    {
+        $this->db->select('kelas.nama');
+        $this->db->from('kelas');
+        $this->db->join('materi_kelas', 'kelas.id = materi_kelas.kelas_id');
+        $this->db->where('materi_id', $materi_id);
+        $result = $this->db->get();
+        return $result->result_array();
     }
 
     /**
