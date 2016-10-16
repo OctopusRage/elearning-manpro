@@ -13,11 +13,11 @@ Data Siswa - {{ parent() }}
         {{ get_flashdata('siswa')|raw }}
 
         <div class="row-fluid">
-            <div class="span7">
-                <a href="{{ site_url('siswa/add/' ~ status_id) }}" class="btn btn-primary">Tambah Siswa</a>
+            <div class="span3  pull-right">
+                <a href="{{ site_url('siswa/add/' ~ status_id) }}" class="btn btn-primary btn-block">Tambah Siswa</a>
             </div>
 
-            <div class="span5">
+            <div class="span9">
                 <div class="btn-group">
                     {{ anchor('siswa/index/1', 'Aktif', {'class' : (status_id == 1) ? 'btn btn-info' : 'btn btn-default'})|raw }}
                     {{ anchor('siswa/index/0', 'Pending', {'class' : (status_id == 0) ? 'btn btn-info' : 'btn btn-default'})|raw }}
