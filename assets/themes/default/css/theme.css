@@ -2121,4 +2121,8 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff5f5f5', end
     .mobile-12 {
     	width:100%;
     }
+    input, .btn, .btn-group{
+		margin-top: 5px;
+		margin-bottom: 5px;
+    }
 }

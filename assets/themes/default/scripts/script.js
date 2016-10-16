@@ -45,3 +45,6 @@ $(function() {
         check_new_msg();
     }, 5000);
 });
+$('table').DataTable( {
+    responsive: true
+} );
