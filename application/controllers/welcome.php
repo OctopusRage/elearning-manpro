@@ -8,11 +8,6 @@ class Welcome extends MY_Controller
 
         $data = array();
         if (is_siswa()) {
-            $siswa_id = get_sess_data('user', 'id');
-            $kelas_siswa = $this->kelas_model->retrieve_siswa(null, array(
-                'siswa_id' => $siswa_id,
-                'aktif'    => 1
-            ));
             $retrieve_all_materi = $this->materi_model->retrieve_all(
                 10,
                 1,
@@ -26,11 +21,6 @@ class Welcome extends MY_Controller
             );
             $data['materi_terbaru'] = $retrieve_all_materi['results'];
 
-            $imt = 1;
-            foreach ($data['materi_terbaru'] as $mt) {
-                $data['materi_terbaru'][$imt]['kelas_terkait']= $this->materi_model->retrieve_all_kelas_spesifik($mt['id']);
-                $imt++;
-            }
             # ambil semua data tugas
             $retrieve_all_tugas = $this->tugas_model->retrieve_all(
                 10,
@@ -38,7 +28,7 @@ class Welcome extends MY_Controller
                 null,
                 null,
                 null,
-                $kelas_siswa['kelas_id'],
+                null,
                 null,
                 null
             );
