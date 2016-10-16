@@ -11,14 +11,19 @@ Materi - {{ parent() }}
     </div>
     <div class="module-body">
         {{ get_flashdata('materi')|raw }}
-
-        <div class="bs-callout bs-callout-info">
-            {% if is_siswa() == false %}
-            <div class="btn-group pull-right" style="margin-top:-5px;">
-                {{ anchor('materi/add/tertulis', 'Tambah Materi Tertulis', {'class' : 'btn btn-primary'})|raw }}
-                {{ anchor('materi/add/file', 'Tambah Materi File', {'class' : 'btn btn-primary'})|raw }}
+        <div class="row-fluid ">
+            <div class="span5 pull-right">
+                {% if is_siswa() == false %}
+                <div class="btn-group pull-right">
+                    {{ anchor('#', 'Tambah Materi', {'class' : 'btn btn-link','disabled':'disabled'})|raw }}
+                    {{ anchor('materi/add/tertulis', 'Materi Tertulis', {'class' : 'btn btn-primary'})|raw }}
+                    {{ anchor('materi/add/file', 'Materi File', {'class' : 'btn btn-primary'})|raw }}
+                </div>
+                {% endif %}
             </div>
-            {% endif %}
+        <div class="span7">
+        <div class="bs-callout bs-callout-info white-background">
+            
             <b><a class="as-link" data-toggle="collapse" data-target="#form-filter"><i class="icon-search" style="line-height: 0px;"></i> PARAMETER PENCARIAN</a></b>
 
             <div id="form-filter" class="collapse" style="margin-top: 5px;">
@@ -95,6 +100,8 @@ Materi - {{ parent() }}
                         </tr>
                     </table>
                 </form>
+            </div>
+            </div>
             </div>
 
         </div>

@@ -11,15 +11,21 @@ Tugas - {{ parent() }}
     </div>
     <div class="module-body">
         {{ get_flashdata('tugas')|raw }}
-
-        <div class="bs-callout bs-callout-info">
-            {% if (is_siswa() == false) %}
-            <div class="btn-group pull-right" style="margin-top:-5px;">
-                {{ anchor('tugas/add/3', 'Tambah Tugas Ganda', {'class' : 'btn btn-primary'})|raw }}
-                {{ anchor('tugas/add/2', 'Tambah Tugas Essay', {'class' : 'btn btn-primary'})|raw }}
-                {{ anchor('tugas/add/1', 'Tambah Tugas Upload', {'class' : 'btn btn-primary'})|raw }}
+        <div class="row-fluid ">
+            <div class="span5 pull-right">
+                {% if (is_siswa() == false) %}
+                <div class="btn-group pull-right">
+                    {{ anchor('#', 'Tambah Tugas', {'class' : 'btn btn-link','disabled':'disabled'})|raw }}
+                    {{ anchor('tugas/add/3', 'Pilihan Ganda', {'class' : 'btn btn-primary'})|raw }}
+                    {{ anchor('tugas/add/2', 'Essay', {'class' : 'btn btn-primary'})|raw }}
+                    {{ anchor('tugas/add/1', 'Upload', {'class' : 'btn btn-primary'})|raw }}
+                </div>
+                {% endif %}
             </div>
-            {% endif %}
+            <div class="span7">
+              
+        <div class="bs-callout bs-callout-info white-background">
+            
             <b><a class="as-link" data-toggle="collapse" data-target="#form-filter"><i class="icon-search" style="line-height: 0px;"></i> PARAMETER PENCARIAN</a></b>
 
             <div id="form-filter" class="collapse" style="margin-top: 5px;">
@@ -123,7 +129,9 @@ Tugas - {{ parent() }}
                     </table>
                 </form>
             </div>
+        </div>
 
+        </div>
         </div>
 
         <br>
