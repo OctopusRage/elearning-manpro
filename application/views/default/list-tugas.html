@@ -11,21 +11,15 @@ Tugas - {{ parent() }}
     </div>
     <div class="module-body">
         {{ get_flashdata('tugas')|raw }}
-        <div class="row-fluid ">
-            <div class="span5 pull-right">
-                {% if (is_siswa() == false) %}
-                <div class="btn-group pull-right">
-                    {{ anchor('#', 'Tambah Tugas', {'class' : 'btn btn-link','disabled':'disabled'})|raw }}
-                    {{ anchor('tugas/add/3', 'Pilihan Ganda', {'class' : 'btn btn-primary'})|raw }}
-                    {{ anchor('tugas/add/2', 'Essay', {'class' : 'btn btn-primary'})|raw }}
-                    {{ anchor('tugas/add/1', 'Upload', {'class' : 'btn btn-primary'})|raw }}
-                </div>
-                {% endif %}
+
+        <div class="bs-callout bs-callout-info">
+            {% if (is_siswa() == false) %}
+            <div class="btn-group pull-right" style="margin-top:-5px;">
+                {{ anchor('tugas/add/3', 'Tambah Tugas Ganda', {'class' : 'btn btn-primary'})|raw }}
+                {{ anchor('tugas/add/2', 'Tambah Tugas Essay', {'class' : 'btn btn-primary'})|raw }}
+                {{ anchor('tugas/add/1', 'Tambah Tugas Upload', {'class' : 'btn btn-primary'})|raw }}
             </div>
-            <div class="span7">
-              
-        <div class="bs-callout bs-callout-info white-background">
-            
+            {% endif %}
             <b><a class="as-link" data-toggle="collapse" data-target="#form-filter"><i class="icon-search" style="line-height: 0px;"></i> PARAMETER PENCARIAN</a></b>
 
             <div id="form-filter" class="collapse" style="margin-top: 5px;">
@@ -129,89 +123,85 @@ Tugas - {{ parent() }}
                     </table>
                 </form>
             </div>
-        </div>
 
-        </div>
         </div>
 
         <br>
 
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th width="7%">ID</th>
-                        <th>Informasi Tugas</th>
-                        <th width="15%">Tipe Tugas</th>
-                        <th width="15%"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for no, m in tugas %}
-                    <tr {{ (is_siswa() and m.aktif == 1 and sudah_ngerjakan(m.id, get_sess_data('user', 'id')) == false) ? 'class="success"' }}>
-                        <td><b>{{ m.id }}</b></td>
-                        <td>
-                            <strong class="text-warning">{{ m.judul }}</strong>
-                            <br><small><b>{{ m.mapel.nama }}</b>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th width="7%">ID</th>
+                    <th>Informasi Tugas</th>
+                    <th width="15%">Tipe Tugas</th>
+                    <th width="15%"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for no, m in tugas %}
+                <tr {{ (is_siswa() and m.aktif == 1 and sudah_ngerjakan(m.id, get_sess_data('user', 'id')) == false) ? 'class="success"' }}>
+                    <td><b>{{ m.id }}</b></td>
+                    <td>
+                        <strong class="text-warning">{{ m.judul }}</strong>
+                        <br><small><b>{{ m.mapel.nama }}</b>
 
-                            {% for mk in m.tugas_kelas %}
-                                , {{ mk.nama }}
-                            {% endfor %}
+                        {% for mk in m.tugas_kelas %}
+                            , {{ mk.nama }}
+                        {% endfor %}
 
+                        {% if m.type_label == 'Ganda' or m.type_label == 'Essay' %}
+                            , {{ m.durasi }} Menit
+                        {% endif %}
+
+                        </small>
+                        <br><small><b>Pembuat : </b> <a href="{{ m.pembuat.link_profil }}">{{ m.pembuat.nama }}</a>, {{ tgl_jam_indo(m.tgl_buat) }}</small>
+                        {% if is_siswa() and m.info != '' %}
+                            <hr style="margin-top: 5px;margin-bottom: 5px;border:none;border-bottom: 1px dashed black;">
+                            {{ m.info|raw }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if m.type_label == 'Ganda' %}
+                            <span class="label label-success">Ganda</span>
+                        {% elseif m.type_label == 'Essay' %}
+                            <span class="label label-info">Essay</span>
+                        {% elseif m.type_label == 'Upload' %}
+                            <span class="label label-warning">Upload</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                        {% if is_siswa() == false %}
                             {% if m.type_label == 'Ganda' or m.type_label == 'Essay' %}
-                                , {{ m.durasi }} Menit
+                                {{ anchor('tugas/manajemen_soal/' ~ m.id, '<i class="icon icon-tasks"></i> Soal', {'class' : 'btn btn-primary btn-small'})|raw }}
+                            {% endif %}
+                            {% if m.aktif == 0 %}
+                                {{ anchor('tugas/terbitkan/' ~ m.id ~ '/' ~ enurl_redirect(current_url()), '<i class="icon-ok"></i> Terbitkan', {'class' : 'btn btn-success btn-small'})|raw }}
+                            {% elseif m.aktif == 1 %}
+                                {{ anchor('tugas/tutup/' ~ m.id ~ '/' ~ enurl_redirect(current_url()), '<i class="icon-minus"></i> Tutup', {'class' : 'btn btn-danger btn-small'})|raw }}
                             {% endif %}
 
-                            </small>
-                            <br><small><b>Pembuat : </b> <a href="{{ m.pembuat.link_profil }}">{{ m.pembuat.nama }}</a>, {{ tgl_jam_indo(m.tgl_buat) }}</small>
-                            {% if is_siswa() and m.info != '' %}
-                                <hr style="margin-top: 5px;margin-bottom: 5px;border:none;border-bottom: 1px dashed black;">
-                                {{ m.info|raw }}
+                            {{ anchor('tugas/edit/' ~ m.id ~ '/' ~ enurl_redirect(current_url()), '<i class="icon-edit"></i> Edit', {'class' : 'btn btn-default btn-small'})|raw }}
+                            {% if m.type_id == 3 %}
+                                {{ anchor('tugas/nilai/' ~ m.id, '<i class="icon-eye-open"></i> Lihat Nilai', {'class' : 'btn btn-info btn-small'})|raw }}
+                            {% else %}
+                                {{ anchor('tugas/koreksi/' ~ m.id, '<i class="icon-check"></i> Koreksi', {'class' : 'btn btn-info btn-small'})|raw }}
                             {% endif %}
-                        </td>
-                        <td>
-                            {% if m.type_label == 'Ganda' %}
-                                <span class="label label-success">Ganda</span>
-                            {% elseif m.type_label == 'Essay' %}
-                                <span class="label label-info">Essay</span>
-                            {% elseif m.type_label == 'Upload' %}
-                                <span class="label label-warning">Upload</span>
+                        {% elseif is_siswa() == true %}
+                            {% if m.aktif == 1 %}
+                                {% if sudah_ngerjakan(m.id, get_sess_data('user', 'id')) == false %}
+                                    {{ anchor('tugas/kerjakan/' ~ m.id, '<i class="icon-ok-sign"></i> Mulai Kerjakan', {'class' : 'btn btn-success btn-small', 'onclick' : 'return confirm(\'Anda yakin ingin memulai mengerjakan tugas ini?\')'})|raw }}
+                                {% endif %}
+                            {% else %}
+                                {{ anchor('tugas/nilai/' ~ m.id, '<i class="icon-flag"></i> Lihat Nilai', {'class' : 'btn btn-info btn-small iframe-lihat-nilai'})|raw }}
                             {% endif %}
-                        </td>
-                        <td>
-                            <div class="btn-group  hidden-xs">
-                            {% if is_siswa() == false %}
-                                {% if m.type_label == 'Ganda' or m.type_label == 'Essay' %}
-                                    {{ anchor('tugas/manajemen_soal/' ~ m.id, '<i class="icon icon-tasks"></i> Soal', {'class' : 'btn btn-primary btn-small'})|raw }}
-                                {% endif %} 
-                                {% if m.aktif == 0 %}
-                                    {{ anchor('tugas/terbitkan/' ~ m.id ~ '/' ~ enurl_redirect(current_url()), '<i class="icon-ok"></i> Terbitkan', {'class' : 'btn btn-success btn-small'})|raw }}
-                                {% elseif m.aktif == 1 %}
-                                    {{ anchor('tugas/tutup/' ~ m.id ~ '/' ~ enurl_redirect(current_url()), '<i class="icon-minus"></i> Tutup', {'class' : 'btn btn-danger btn-small'})|raw }}
-                                {% endif %}
-
-                                {{ anchor('tugas/edit/' ~ m.id ~ '/' ~ enurl_redirect(current_url()), '<i class="icon-edit"></i> Edit', {'class' : 'btn btn-default btn-small'})|raw }}
-                                {% if m.type_id == 3 %}
-                                    {{ anchor('tugas/nilai/' ~ m.id, '<i class="icon-eye-open"></i> Lihat Nilai', {'class' : 'btn btn-info btn-small'})|raw }}
-                                {% else %}
-                                    {{ anchor('tugas/koreksi/' ~ m.id, '<i class="icon-check"></i> Koreksi', {'class' : 'btn btn-info btn-small'})|raw }}
-                                {% endif %}
-                            {% elseif is_siswa() == true %}
-                                {% if m.aktif == 1 %}
-                                    {% if sudah_ngerjakan(m.id, get_sess_data('user', 'id')) == false %}
-                                        {{ anchor('tugas/kerjakan/' ~ m.id, '<i class="icon-ok-sign"></i> Mulai Kerjakan', {'class' : 'btn btn-success btn-small', 'onclick' : 'return confirm(\'Anda yakin ingin memulai mengerjakan tugas ini?\')'})|raw }}
-                                    {% endif %}
-                                {% else %}
-                                    {{ anchor('tugas/nilai/' ~ m.id, '<i class="icon-flag"></i> Lihat Nilai', {'class' : 'btn btn-info btn-small iframe-lihat-nilai'})|raw }}
-                                {% endif %}
-                            {% endif %}
-                            </div>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+                        {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
         <br>
         {{ pagination|raw }}
 
