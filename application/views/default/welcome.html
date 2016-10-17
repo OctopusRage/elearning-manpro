@@ -112,6 +112,15 @@
                         <td>
                             <a href="{{ site_url('materi/detail/' ~ m.id) }}" target="_tab">{{ m.judul }}</a>
                         </td>
+                        <td>
+
+                            {% for mk in m.kelas_terkait %}
+
+                                {{mk.nama }}
+
+                            {% endfor %}
+
+                        </td>
                     </tr>
                     {% endfor %}
                 </table>

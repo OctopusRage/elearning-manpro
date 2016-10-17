@@ -46,5 +46,29 @@ $(function() {
     }, 5000);
 });
 $('table').DataTable( {
-    responsive: true
+    responsive: true,
+    "language": {
+        "decimal":        "",
+        "emptyTable":     "Tidak ada data dalam tabel",
+        "info":           "Menampilkan data ke _START_ sampai _END_ dari _TOTAL_ ",
+        "infoEmpty":      "Tidak ada data",
+        "infoFiltered":   "(Penyaringan dari total _MAX_ data)",
+        "infoPostFix":    "",
+        "thousands":      ",",
+        "lengthMenu":     "Tampilkan&nbsp;&nbsp;&nbsp;  _MENU_  data",
+        "loadingRecords": "Memuat...",
+        "processing":     "Menunggu...",
+        "search":         "Cari:&nbsp;&nbsp;&nbsp;",
+        "zeroRecords":    "Tidak ada data yang sesuai",
+        "paginate": {
+            "first":      "Pertama",
+            "last":       "Terakhir",
+            "next":       "Selanjutnya",
+            "previous":   "Sebelumnya"
+        },
+        "aria": {
+            "sortAscending":  ": Pengurutan Ascending",
+            "sortDescending": ": Pengurutan sDescending"
+        }
+      }
 } );

@@ -1,0 +1,35 @@
+.transparent{
+	background-color: transparent;
+}
+#form-filter{
+    width: 100%;
+}
+.navbar .navbar-inner{
+    border-bottom-color: #efefef;
+}
+.navbar .nav > li > .dropdown-menu,.navbar .nav > li.dropdown.open > .dropdown-toggle, .navbar .nav > li.dropdown.active > .dropdown-toggle, .navbar .nav > li.dropdown.open.active > .dropdown-toggle{
+    border-color:#efefef;
+}
+
+@media (min-width : 767px ) {
+	
+	.btn-group.pull-right{
+		margin-bottom: 10px !important;
+	}
+    .unstyled.filter li{
+        width: 40%;
+    }
+
+}
+@media(max-width: 767px){
+    .btn-group > .btn{
+        display: block !important;
+        border-radius: 4px;
+    }
+    .fullist{
+        width: 100%;
+    }
+    .unstyled.filter li{
+        width: 100%;
+    }
+}

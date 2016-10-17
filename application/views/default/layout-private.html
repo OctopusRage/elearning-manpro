@@ -10,6 +10,7 @@
         <link type="text/css" href="{{ base_url_theme }}images/icons/css/font-awesome.css" rel="stylesheet">
         <link type="text/css" href="{{ base_url('assets/comp/pace/flash.css') }}" rel="stylesheet">
         <link type="text/css" href="{{ base_url('assets/comp/offline/offline-theme-chrome.css') }}" rel="stylesheet">
+        <link type="text/css" href="{{ base_url_theme }}css/custom.css" rel="stylesheet">
         <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
         {% block css %}{% endblock %}
         {{ comp_css|raw }}
@@ -36,8 +37,8 @@
                             {% include 'top-mobile-menu.html' %}
 
                             {% if is_admin() %}
-                            <li><a href="{{ site_url('welcome/get_plugin') }}">PLUGINS</a></li>
-                            <li><a href="{{ site_url('welcome/donation') }}">DONASI</a></li>
+                           <!--  <li><a href="{{ site_url('welcome/get_plugin') }}">PLUGINS</a></li> -->
+                            <!-- <li><a href="{{ site_url('welcome/donation') }}">DONASI</a></li> -->
                             {% endif %}
                             <li class="nav-user dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 {{ nama_panggilan(get_sess_data('user', 'nama')) }}
