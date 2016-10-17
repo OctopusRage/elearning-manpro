@@ -77,6 +77,7 @@ Laporan Komentar Materi - {{ parent() }}
 {% block js %}
 <script type="text/javascript">
     $('.datatable').dataTable({
+        destroy: false,
         "language": {
             "url": base_url + "assets/comp/datatables/lang.id.json"
         },
