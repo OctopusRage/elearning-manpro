@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 16, 2016 at 09:57 AM
+-- Generation Time: Oct 17, 2016 at 08:25 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.6
 
@@ -167,6 +167,13 @@ CREATE TABLE `komentar` (
   `tgl_posting` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `komentar`
+--
+
+INSERT INTO `komentar` (`id`, `login_id`, `materi_id`, `tampil`, `konten`, `tgl_posting`) VALUES
+(2, 4, 1, 1, '<p>aokwokawokawokaw</p>', '2016-10-16 20:58:37');
+
 -- --------------------------------------------------------
 
 --
@@ -277,6 +284,13 @@ CREATE TABLE `materi` (
   `views` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `materi`
+--
+
+INSERT INTO `materi` (`id`, `mapel_id`, `pengajar_id`, `siswa_id`, `judul`, `konten`, `file`, `tgl_posting`, `publish`, `views`) VALUES
+(1, 4, 1, NULL, 'sdadsad', '<p>dasdsadsa</p>', NULL, '2016-10-16 20:39:02', 1, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -288,6 +302,13 @@ CREATE TABLE `materi_kelas` (
   `materi_id` int(11) NOT NULL,
   `kelas_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `materi_kelas`
+--
+
+INSERT INTO `materi_kelas` (`id`, `materi_id`, `kelas_id`) VALUES
+(1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -368,7 +389,7 @@ CREATE TABLE `pengaturan` (
 --
 
 INSERT INTO `pengaturan` (`id`, `nama`, `value`) VALUES
-('alamat', 'alamat', 'Jl. R.W. Monginsidi No 2, Cokrodiningratan, Jetis, Yogyakarta'),
+('alamat', 'alamat', 'Jl. AM. Sangaji 47, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55233'),
 ('email-server', 'Email server', 'no-reply@domain.com'),
 ('email-template-approve-pengajar', 'Approve pengajar (email pengajar)', '{"subject":"Pengaktifan Akun","body":"<p>Hai {$nama},<\\/p>\\n<p>Anda telah diterima sebagai pengajar pada {$nama_sekolah}, berikut informasi data diri anda:<\\/p>\\n<p>{$tabel_profil}<\\/p>\\n<p>Anda dapat login ke sistem E-Learning menggunakan username dan password yang telah anda buat saat pendaftaran, login pada url berikut : {$url_login}<\\/p>"}'),
 ('email-template-approve-siswa', 'Approve siswa (email siswa)', '{"subject":"Pengaktifan Akun","body":"<p>Hai {$nama},<\\/p>\\n<p>Anda telah diterima sebagai siswa pada {$nama_sekolah}, berikut informasi data diri anda:<\\/p>\\n<p>{$tabel_profil}<\\/p>\\n<p>Anda dapat login ke sistem E-Learning menggunakan username dan password yang telah anda buat saat pendaftaran, login pada url berikut : {$url_login}<\\/p>"}'),
@@ -378,11 +399,11 @@ INSERT INTO `pengaturan` (`id`, `nama`, `value`) VALUES
 ('info-registrasi', 'Info Registrasi', '<p>Silahkan mendaftar sebagai siswa atau pengajar (jika anda sebagai pengajar) dengan memilih sesuai tab berikut :</p>'),
 ('install-success', 'install-success', '1'),
 ('jenjang', 'jenjang', 'SMA'),
-('nama-sekolah', 'nama-sekolah', 'SMKN 3 Yogyakarta'),
+('nama-sekolah', 'nama-sekolah', 'SMKN 2 Yogyakarta'),
 ('peraturan-elearning', 'Peraturan E-learning', ''),
 ('registrasi-pengajar', 'Registrasi Pengajar', '1'),
 ('registrasi-siswa', 'Registrasi Siswa', '1'),
-('telp', 'telp', '0274-513503'),
+('telp', 'telp', '(0274) 513490'),
 ('versi', 'Versi', '1.7');
 
 -- --------------------------------------------------------
@@ -423,7 +444,9 @@ CREATE TABLE `pilihan` (
 
 INSERT INTO `pilihan` (`id`, `pertanyaan_id`, `konten`, `kunci`, `urutan`, `aktif`) VALUES
 (1, 1, '<p>ilmu ekonomi</p>', 1, 1, 1),
-(2, 1, '<p>ilmu mengaji</p>', 0, 2, 1);
+(2, 1, '<p>ilmu mengaji</p>', 0, 2, 1),
+(3, 2, '<p>Rosevelt</p>', 1, 1, 1),
+(4, 2, '<p>aku tak tau </p>', 0, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -518,7 +541,8 @@ CREATE TABLE `tugas_pertanyaan` (
 --
 
 INSERT INTO `tugas_pertanyaan` (`id`, `pertanyaan`, `urutan`, `tugas_id`, `aktif`) VALUES
-(1, '<p>apa yang dimaksud ilmu ekonomi?</p>', 1, 1, 1);
+(1, '<p>apa yang dimaksud ilmu ekonomi?</p>', 1, 1, 1),
+(2, '<p>siapakah penggagas ilmu ekonomi yang digagas presiden Rosevelt?</p>', 2, 1, 1);
 
 --
 -- Indexes for dumped tables
@@ -689,7 +713,7 @@ ALTER TABLE `kelas_siswa`
 -- AUTO_INCREMENT for table `komentar`
 --
 ALTER TABLE `komentar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `login`
 --
@@ -714,12 +738,12 @@ ALTER TABLE `mapel_kelas`
 -- AUTO_INCREMENT for table `materi`
 --
 ALTER TABLE `materi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `materi_kelas`
 --
 ALTER TABLE `materi_kelas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `messages`
 --
@@ -744,7 +768,7 @@ ALTER TABLE `pengumuman`
 -- AUTO_INCREMENT for table `pilihan`
 --
 ALTER TABLE `pilihan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `siswa`
 --
@@ -764,7 +788,7 @@ ALTER TABLE `tugas_kelas`
 -- AUTO_INCREMENT for table `tugas_pertanyaan`
 --
 ALTER TABLE `tugas_pertanyaan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- Constraints for dumped tables
 --
